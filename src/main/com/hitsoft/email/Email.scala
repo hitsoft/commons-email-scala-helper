@@ -1,7 +1,5 @@
 package com.hitsoft.email
 
-import org.apache.commons.validator.routines.EmailValidator
-
 object Email {
   implicit def stringToSeq(single: String): Seq[String] = Seq(single)
 
@@ -72,7 +70,4 @@ object Email {
         .send()
     }
   }
-
-  def isValid(email: String): Boolean = EmailValidator.getInstance().isValid(email)
-
 }
