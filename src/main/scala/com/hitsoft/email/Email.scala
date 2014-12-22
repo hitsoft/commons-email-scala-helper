@@ -20,9 +20,14 @@ object Email {
     val password: Option[String]
   }
 
+  trait Address {
+    val email: String
+    val name: String
+  }
+
   case class Mail(
                     server: Config,
-                   from: (String, String), // (email -> name)
+                   from: Address,
                    to: Seq[String],
                    cc: Seq[String] = Seq.empty,
                    bcc: Seq[String] = Seq.empty,
@@ -65,7 +70,7 @@ object Email {
       mail.bcc foreach (commonsMail.addBcc(_))
 
       commonsMail
-        .setFrom(mail.from._1, mail.from._2)
+        .setFrom(mail.from.email, mail.from.name)
         .setSubject(mail.subject)
         .send()
     }
